@@ -6,7 +6,7 @@ Using client sessions provides a scalable way to store state information in the 
 
 To avoid tampering (data readout and manipulation of the client-visible cookie), session data is encrypted.
 
-However, as a cost, sessions can not be invalidated other than by the user. If this is needed, you might want to store expiration information in the session, such as use JSON Web Token or other mechanisms.
+However, as a cost, sessions can not be invalidated other than by the user, scenarios such as "log out all sessions of user" are not possible.
 
 ## Installation
 
@@ -32,7 +32,6 @@ app.use(encryptedSession({
     key: 'session',
     maxAge: 7 * 24 * 3600 * 1000,
     secret: 'insert 32 random characters here'
-    /** Warning: If a session cookie is stolen, this cookie will never expire */
     /** Additional options from koa-session can be used */
 }, app));
 ```
