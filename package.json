@@ -21,7 +21,6 @@
   "main": "index.js",
   "dependencies": {
     "base64url": "^3.0.0",
-    "crypto": "^1.0.1",
     "koa-session": "^5.9.0"
   },
   "devDependencies": {
