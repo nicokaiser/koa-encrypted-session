@@ -1,5 +1,15 @@
 # koa-encrypted-session
 
+[![NPM version][npm-image]][npm-url]
+[![David deps][david-image]][david-url]
+
+[npm-image]: https://img.shields.io/npm/v/koa-encrypted-session.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/koa-encrypted-session
+[david-image]: https://img.shields.io/david/nicokaiser/koa-encrypted-session.svg?style=flat-square
+[david-url]: https://david-dm.org/nicokaiser/koa-encrypted-session
+[download-image]: https://img.shields.io/npm/dm/koa-encrypted-session.svg?style=flat-square
+[download-url]: https://npmjs.org/package/koa-encrypted-session
+
 Encrypted session middleware for Koa. Uses cookie-based client sessions with AES256-GCM encrypted cookies.
 
 Using client sessions provides a scalable way to store state information in the client. This eliminates the need of a database on server-side and enables to run stateless server instances.
