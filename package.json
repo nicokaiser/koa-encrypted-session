@@ -15,7 +15,8 @@
     "encrypted"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "lib/util.js"
   ],
   "main": "index.js",
   "dependencies": {
@@ -33,7 +34,7 @@
     "eslint-plugin-standard": "^4.0.0"
   },
   "scripts": {
-    "lint": "eslint index.js",
+    "lint": "eslint index.js lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
