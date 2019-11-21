@@ -6,7 +6,8 @@ const sodium = require('sodium-native');
 /**
  * Initialize session middleware with `opts`:
  *
- * - `secret` secret key for encryption
+ * - `secretKey` secret key for encryption
+ * - `secret` secret passphrase for encryption
  * - `salt` salt for encryption
  * - all other options are passed as koa-session options
  *
