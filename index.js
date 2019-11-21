@@ -23,23 +23,39 @@ module.exports = function encryptedSession(opts, app) {
     throw new TypeError('app instance required: `encryptedSession(opts, app)`');
   }
 
-  if (!opts.secret || Buffer.byteLength(opts.secret) < 32) {
-    throw new Error('Invalid key length: opts.secret must be at least 32 bytes');
+  let secretKey;
+  if (opts.secret) {
+    if (Buffer.byteLength(opts.secret) < 32) {
+      throw new Error('Invalid key length: opts.secret must be at least 32 bytes');
+    }
+
+    secretKey = Buffer.allocUnsafe(sodium.crypto_secretbox_KEYBYTES);
+    let salt = Buffer.from('r7bFNKlRQnpAjvuLawnvRQ==', 'base64');
+    if (opts.salt) salt = (Buffer.isBuffer(opts.salt)) ? opts.salt : Buffer.from(opts.salt, 'ascii');
+    if (Buffer.byteLength(salt) !== sodium.crypto_pwhash_SALTBYTES) {
+      throw new Error('salt must be length ' + sodium.crypto_pwhash_SALTBYTES);
+    }
+
+    sodium.crypto_pwhash(secretKey,
+      Buffer.from(opts.secret),
+      salt,
+      sodium.crypto_pwhash_OPSLIMIT_MODERATE,
+      sodium.crypto_pwhash_MEMLIMIT_MODERATE,
+      sodium.crypto_pwhash_ALG_DEFAULT);
   }
 
-  const key = Buffer.allocUnsafe(sodium.crypto_secretbox_KEYBYTES);
-  let salt = Buffer.from('r7bFNKlRQnpAjvuLawnvRQ==', 'base64');
-  if (opts.salt) salt = (Buffer.isBuffer(opts.salt)) ? opts.salt : Buffer.from(opts.salt, 'ascii');
-  if (Buffer.byteLength(salt) !== sodium.crypto_pwhash_SALTBYTES) {
-    throw new Error('salt must be length ' + sodium.crypto_pwhash_SALTBYTES);
+  if (opts.secretKey) {
+    secretKey = opts.secretKey;
+    if (typeof secretKey === 'string') {
+      secretKey = Buffer.from(secretKey, 'base64');
+    } else if (!(secretKey instanceof Buffer)) {
+      throw new Error('secretKey must be a string or a Buffer');
+    }
+
+    if (secretKey.length < sodium.crypto_secretbox_KEYBYTES) throw new Error(`secretKey must be at least ${sodium.crypto_secretbox_KEYBYTES} bytes`);
   }
 
-  sodium.crypto_pwhash(key,
-    Buffer.from(opts.secret),
-    salt,
-    sodium.crypto_pwhash_OPSLIMIT_MODERATE,
-    sodium.crypto_pwhash_MEMLIMIT_MODERATE,
-    sodium.crypto_pwhash_ALG_DEFAULT);
+  if (!secretKey) throw new Error('secretKey or secret must specified');
 
   // disable cookie signing
   opts.signed = false;
@@ -56,7 +72,7 @@ module.exports = function encryptedSession(opts, app) {
     if (cipher.length < sodium.crypto_secretbox_MACBYTES) throw new SyntaxError('not long enough');
 
     const msg = Buffer.allocUnsafe(cipher.length - sodium.crypto_secretbox_MACBYTES);
-    if (!sodium.crypto_secretbox_open_easy(msg, cipher, nonce, key)) throw new SyntaxError('unable to decrypt');
+    if (!sodium.crypto_secretbox_open_easy(msg, cipher, nonce, secretKey)) throw new SyntaxError('unable to decrypt');
 
     return JSON.parse(msg);
   };
@@ -67,7 +83,7 @@ module.exports = function encryptedSession(opts, app) {
     const msg = Buffer.from(JSON.stringify(session));
 
     const cipher = Buffer.allocUnsafe(msg.length + sodium.crypto_secretbox_MACBYTES);
-    sodium.crypto_secretbox_easy(cipher, msg, nonce, key);
+    sodium.crypto_secretbox_easy(cipher, msg, nonce, secretKey);
 
     return encodeURIComponent(cipher.toString('base64') + ';' + nonce.toString('base64'));
   };

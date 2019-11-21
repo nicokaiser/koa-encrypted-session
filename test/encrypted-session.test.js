@@ -28,7 +28,7 @@ describe('Koa encrypted session', () => {
       const app = new Koa();
       (function() {
         app.use(encryptedSession({}, app));
-      }.should.throw('Invalid key length: opts.secret must be at least 32 bytes'));
+      }.should.throw('secretKey or secret must specified'));
     });
   });
 
@@ -49,9 +49,27 @@ describe('Koa encrypted session', () => {
     });
   });
 
+  describe('when opts.secretKey is set', () => {
+    it('should work', done => {
+      const app = new Koa();
+
+      app.use(encryptedSession({ secretKey: '+qLPL3nkbs5tXqlisiisUBc3qqsowiOXcqtQfY8UAK0=' }, app));
+
+      app.use(async ctx => {
+        ctx.session.message = 'hi';
+        ctx.body = ctx.session;
+      });
+
+      request(app.listen())
+        .get('/')
+        .expect(200, done);
+    });
+  });
+
   describe('when the session contains a ;', () => {
     it('should still work', done => {
-      const app = App();
+      const app = new Koa();
+      app.use(encryptedSession({ secretKey: '+qLPL3nkbs5tXqlisiisUBc3qqsowiOXcqtQfY8UAK0=' }, app));
 
       app.use(async ctx => {
         if (ctx.method === 'POST') {
@@ -77,11 +95,3 @@ describe('Koa encrypted session', () => {
     });
   });
 });
-
-function App(options) {
-  const app = new Koa();
-  options = options || {};
-  options.secret = options.secret || 'insert 32 random characters here';
-  app.use(encryptedSession(options, app));
-  return app;
-}

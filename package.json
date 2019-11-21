@@ -19,6 +19,9 @@
     "lib/util.js"
   ],
   "main": "index.js",
+  "bin": {
+    "koa-encrypted-session-gen-key": "gensecretkey.js"
+  },
   "dependencies": {
     "base64url": "^3.0.1",
     "koa-session": "^5.12.3",

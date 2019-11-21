@@ -27,7 +27,13 @@ npm install koa-encrypted-session
 
 ## Usage
 
-This library inherits from `koa-session`, so all of its options can be used. An additional mandatory `secret` options is introduced, which must be at least 256 Bits (32 characters) long.
+This library inherits from `koa-session`, so all of its options can be used. An additional `secretKey` option is introduced, which must be a high-entropy key. This key can be generated with:
+
+```
+./node_modules/.bin/koa-encrypted-session-gen-key
+```
+
+Alternatively, a `secret` passphrase and (optional) a `salt` can be used, which is at startup hashed.
 
 ## Example
 
@@ -40,7 +46,7 @@ const app = new Koa();
 app.use(encryptedSession({
     key: 'session',
     maxAge: 7 * 24 * 3600 * 1000,
-    secret: 'insert 32 random characters here'
+    secretKey: Buffer.from('EsAg64LMvGITBBz1ZGLfDNU/MYqGDpTzJ1u4BsvIfTw=', 'base64')
     /** Additional options from koa-session can be used */
 }, app));
 ```
