@@ -1,9 +1,9 @@
 # koa-encrypted-session
 
+[![Build Status](https://travis-ci.org/nicokaiser/koa-encrypted-session.svg?branch=master)](https://travis-ci.org/nicokaiser/koa-encrypted-session)
 [![NPM version][npm-image]][npm-url]
 [![David deps][david-image]][david-url]
 
-[![Build Status](https://travis-ci.org/nicokaiser/koa-encrypted-session.svg?branch=master)](https://travis-ci.org/nicokaiser/koa-encrypted-session)
 [npm-image]: https://img.shields.io/npm/v/koa-encrypted-session.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/koa-encrypted-session
 [david-image]: https://img.shields.io/david/nicokaiser/koa-encrypted-session.svg?style=flat-square
