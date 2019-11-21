@@ -10,7 +10,7 @@
 [download-image]: https://img.shields.io/npm/dm/koa-encrypted-session.svg?style=flat-square
 [download-url]: https://npmjs.org/package/koa-encrypted-session
 
-Encrypted session middleware for Koa. Uses cookie-based client sessions with AES256-GCM encrypted cookies.
+Encrypted session middleware for Koa. Uses cookie-based client sessions with libsodium's [Secret key box](https://github.com/sodium-friends/sodium-native#secret-key-box-encryption) encrypted cookies.
 
 Using client sessions provides a scalable way to store state information in the client. This eliminates the need of a database on server-side and enables to run stateless server instances.
 
@@ -26,9 +26,7 @@ npm install koa-encrypted-session
 
 ## Usage
 
-This library inherits from `koa-session`, so all of its options can be used. An additional mandatory `secret` options is introduced, which must be 256 Bits (32 characters) long.
-
-By default, cookie signing is turned off, as AES256-GCM already takes care of this.
+This library inherits from `koa-session`, so all of its options can be used. An additional mandatory `secret` options is introduced, which must be at least 256 Bits (32 characters) long.
 
 ## Example
 
@@ -45,6 +43,10 @@ app.use(encryptedSession({
     /** Additional options from koa-session can be used */
 }, app));
 ```
+
+## Acknowledgements
+
+The encryption parts of this code are ported to Koa from [`fastify-secret-session`](https://github.com/mcollina/fastify-secure-session).
 
 ## License
 
