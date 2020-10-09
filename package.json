@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "koa-session": "^6.0.0",
+    "koa-session": "^6.1.0",
     "sodium-native": "^3.2.0"
   },
   "devDependencies": {
