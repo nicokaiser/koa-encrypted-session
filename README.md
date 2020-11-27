@@ -1,6 +1,6 @@
 # koa-encrypted-session
 
-[![Build Status](https://travis-ci.org/nicokaiser/koa-encrypted-session.svg?branch=master)](https://travis-ci.org/nicokaiser/koa-encrypted-session)
+[![Build Status](https://travis-ci.org/nicokaiser/koa-encrypted-session.svg?branch=main)](https://travis-ci.org/nicokaiser/koa-encrypted-session)
 [![NPM version][npm-image]][npm-url]
 [![David deps][david-image]][david-url]
 
