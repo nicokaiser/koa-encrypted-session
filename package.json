@@ -28,7 +28,7 @@
     "sodium-native": "^3.2.1"
   },
   "devDependencies": {
-    "eslint": "^7.26.0",
+    "eslint": "^7.30.0",
     "eslint-config-koa": "^2.0.2",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.23.2",
