@@ -1,15 +1,7 @@
 # koa-encrypted-session
 
-[![Build Status](https://travis-ci.org/nicokaiser/koa-encrypted-session.svg?branch=main)](https://travis-ci.org/nicokaiser/koa-encrypted-session)
-[![NPM version][npm-image]][npm-url]
-[![David deps][david-image]][david-url]
-
-[npm-image]: https://img.shields.io/npm/v/koa-encrypted-session.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/koa-encrypted-session
-[david-image]: https://img.shields.io/david/nicokaiser/koa-encrypted-session.svg?style=flat-square
-[david-url]: https://david-dm.org/nicokaiser/koa-encrypted-session
-[download-image]: https://img.shields.io/npm/dm/koa-encrypted-session.svg?style=flat-square
-[download-url]: https://npmjs.org/package/koa-encrypted-session
+![CI](https://github.com/nicokaiser/koa-encrypted-session/workflows/CI/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/koa-encrypted-session.svg?style=flat)](https://www.npmjs.com/package/koa-encrypted-session)
 
 Encrypted session middleware for Koa. Uses cookie-based client sessions with libsodium's [Secret key box](https://github.com/sodium-friends/sodium-native#secret-key-box-encryption) encrypted cookies.
 
