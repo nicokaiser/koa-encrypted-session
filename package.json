@@ -45,7 +45,7 @@
     "test": "npm run lint && NODE_ENV=test mocha --exit --require should --reporter spec test/*.test.js"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "author": "Nico Kaiser <nico@kaiser.me>",
   "license": "MIT"
