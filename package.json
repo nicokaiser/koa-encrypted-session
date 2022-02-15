@@ -47,5 +47,32 @@
     "node": ">=12"
   },
   "author": "Nico Kaiser <nico@kaiser.me>",
-  "license": "MIT"
+  "license": "MIT",
+  "prettier": {
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended",
+      "prettier"
+    ],
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "overrides": [
+      {
+        "files": [
+          "test/**/*.js"
+        ],
+        "env": {
+          "mocha": true
+        }
+      }
+    ]
+  }
 }
