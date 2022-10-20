@@ -1,5 +1,5 @@
-'use strict';
-
+const { afterEach, beforeEach, describe, it } = require('node:test');
+const assert = require('node:assert');
 const Koa = require('koa');
 const request = require('supertest');
 const encryptedSession = require('..');
@@ -8,31 +8,35 @@ describe('Koa encrypted session', () => {
   describe('when opts not set', () => {
     it('should throw', () => {
       const app = new Koa();
-      (function () {
-        app.use(encryptedSession());
-      }.should.throw('opts required: `encryptedSession(opts, app)`'));
+      assert.throws(() => app.use(encryptedSession()), {
+        message: 'opts required: `encryptedSession(opts, app)`',
+      });
     });
   });
 
   describe('when app not set', () => {
     it('should throw', () => {
       const app = new Koa();
-      (function () {
-        app.use(encryptedSession({}));
-      }.should.throw('app instance required: `encryptedSession(opts, app)`'));
+      assert.throws(() => app.use(encryptedSession({})), {
+        message: 'app instance required: `encryptedSession(opts, app)`',
+      });
     });
   });
 
   describe('when app.secret is not set', () => {
     it('should throw', () => {
       const app = new Koa();
-      (function () {
-        app.use(encryptedSession({}, app));
-      }.should.throw('secretKey or secret must specified'));
+      assert.throws(() => app.use(encryptedSession({}, app)), {
+        message: 'secretKey or secret must specified',
+      });
     });
   });
 
   describe('when opts.secret is set', () => {
+    let server;
+    beforeEach(() => (server = null));
+    afterEach(() => server?.close());
+
     it('should work', (done) => {
       const app = new Koa();
 
@@ -45,11 +49,16 @@ describe('Koa encrypted session', () => {
         ctx.body = ctx.session;
       });
 
-      request(app.listen()).get('/').expect(200, done);
+      server = app.listen();
+      request(server).get('/').expect(200, done);
     });
   });
 
   describe('when opts.secretKey is set', () => {
+    let server;
+    beforeEach(() => (server = null));
+    afterEach(() => server?.close());
+
     it('should work', (done) => {
       const app = new Koa();
 
@@ -65,11 +74,16 @@ describe('Koa encrypted session', () => {
         ctx.body = ctx.session;
       });
 
-      request(app.listen()).get('/').expect(200, done);
+      server = app.listen();
+      request(server).get('/').expect(200, done);
     });
   });
 
   describe('when the session contains a ;', () => {
+    let server;
+    beforeEach(() => (server = null));
+    afterEach(() => server?.close());
+
     it('should still work', (done) => {
       const app = new Koa();
       app.use(
@@ -88,7 +102,7 @@ describe('Koa encrypted session', () => {
         }
       });
 
-      const server = app.listen();
+      server = app.listen();
 
       request(server)
         .post('/')

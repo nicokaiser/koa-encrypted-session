@@ -14,10 +14,7 @@
     "cookie",
     "encrypted"
   ],
-  "files": [
-    "index.js",
-    "lib/util.js"
-  ],
+  "files": ["index.js"],
   "main": "index.js",
   "bin": {
     "koa-encrypted-session-gen-key": "gensecretkey.js"
@@ -25,26 +22,24 @@
   "dependencies": {
     "base64url": "^3.0.1",
     "koa-session": "^6.2.0",
-    "sodium-native": "^3.3.0"
+    "sodium-native": "^3.4.1"
   },
   "devDependencies": {
-    "eslint": "^8.17.0",
+    "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^6.1.1",
     "koa": "^2.13.4",
-    "mocha": "^10.0.0",
-    "prettier": "^2.6.2",
-    "should": "^13.2.3",
-    "supertest": "^6.2.3"
+    "prettier": "^2.7.1",
+    "supertest": "^6.3.0"
   },
   "scripts": {
     "lint": "eslint index.js test index.js",
-    "test": "npm run lint && NODE_ENV=test mocha --exit --require should --reporter spec test/*.test.js"
+    "test": "npm run lint && node --test"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "author": "Nico Kaiser <nico@kaiser.me>",
   "license": "MIT",
@@ -54,25 +49,14 @@
   "eslintConfig": {
     "extends": [
       "eslint:recommended",
-      "plugin:prettier/recommended",
-      "prettier"
+      "plugin:prettier/recommended"
     ],
     "env": {
       "node": true,
       "es6": true
     },
     "parserOptions": {
-      "ecmaVersion": 2018
-    },
-    "overrides": [
-      {
-        "files": [
-          "test/**/*.js"
-        ],
-        "env": {
-          "mocha": true
-        }
-      }
-    ]
+      "ecmaVersion": 2020
+    }
   }
 }

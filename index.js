@@ -1,5 +1,3 @@
-'use strict';
-
 const session = require('koa-session');
 const sodium = require('sodium-native');
 
