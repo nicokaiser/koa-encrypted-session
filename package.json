@@ -24,7 +24,7 @@
   "dependencies": {
     "base64url": "^3.0.1",
     "koa-session": "^6.4.0",
-    "sodium-native": "^4.0.0"
+    "sodium-native": "^4.0.1"
   },
   "devDependencies": {
     "eslint": "^8.25.0",
